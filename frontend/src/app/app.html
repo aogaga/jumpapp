@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+
+      <form [formGroup]="form" (ngSubmit)="convert()">
+
+        <div class="mb-3">
+          <label class="form-label">Amount</label>
+          <input type="number" formControlName="amount" class="form-control">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Currency</label>
+          <select class="form-select" formControlName="currency">
+            <option value="" disabled>Select Currency</option>
+            <option *ngFor="let entry of rateResponse?.rates | keyvalue" [value]="entry.key">
+              {{ entry.key }} - {{ entry.value }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+            Convert
+          </button>
+        </div>
+
+      </form>
+
+      <div *ngIf="convertedAmount !== undefined" class="mt-3">
+        <strong>Converted Amount: </strong> {{ convertedAmount }}
+      </div>
+
+
+    </div>
+    <div class="col">
+      Column
+    </div>
+  </div>
+</div>
+<router-outlet />
